@@ -1,5 +1,6 @@
 package com.moments.WeatherAPI.Services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -8,10 +9,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WeatherService {
 
     private final WebClient webClient;
+    private final String apiKey;
 
-    public WeatherService() {
+    public WeatherService(@Value("${weather.api.key}") String apiKey, @Value("${weather.api.url}") String baseUrl) {
+        this.apiKey = apiKey;
         this.webClient = WebClient.builder()
-                .baseUrl("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline")
+                .baseUrl(baseUrl)
                 .build();
     }
 
@@ -19,7 +22,7 @@ public class WeatherService {
     public String getWeather(String city) {
         return this.webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/{city}")
-                        .queryParam("key", "EXLKSZUA8L9GZFEVKY45CLQRA")
+                        .queryParam("key", apiKey)
                         .build(city))
                 .retrieve()
                 .bodyToMono(String.class)
