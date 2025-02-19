@@ -20,7 +20,7 @@ public class WeatherService {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
-        this.objectMapper = new ObjectMapper(); 
+        this.objectMapper = new ObjectMapper();
     }
 
     public Map<String, Object> getWeatherData(String city) {
@@ -34,15 +34,15 @@ public class WeatherService {
 
         try {
             Map<String, Object> responseMap = objectMapper.readValue(jsonResponse, Map.class);
-            return extractRelevantData(responseMap); // Extrai os dados necessários
+            return extractRelevantData(responseMap);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao processar o JSON recebido da API", e);
+            throw new RuntimeException("Error processing the JSON received from the 3rd Party API", e);
         }
     }
 
     private Map<String, Object> extractRelevantData(Map<String, Object> responseMap) {
 
-        String city = (String) responseMap.get("address"); // Cidade consultada
+        String city = (String) responseMap.get("address");
         Map<String, Object> currentConditions = (Map<String, Object>) responseMap.get("currentConditions");
 
         return Map.of(
