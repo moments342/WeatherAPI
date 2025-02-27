@@ -1,5 +1,5 @@
 # Weather API
-This project is an API that provides real-time weather data based on the name of a city. It integrates with a third-party weather service to fetch the weather data and returns essential information such as temperature, feels-like temperature, and weather conditions.
+This API provides real-time weather data based on the name of a city. It integrates with a third-party weather service to fetch the weather data and returns essential information such as temperature, feels-like temperature, and weather conditions.
 
 # Tecnologies used
 • Java 21
